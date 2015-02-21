@@ -1,0 +1,4 @@
+#! /bin/bash
+
+sudo deluser git --remove-home
+exit 0;

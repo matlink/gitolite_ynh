@@ -1,0 +1,6 @@
+#! /bin/bash
+
+cd /home/git/
+sudo su - git -c "git clone git://github.com/sitaramc/gitolite"
+sudo su - git -c "/home/git/gitolite/install -to /home/git/bin"
+exit 0;

@@ -1,0 +1,39 @@
+#! /bin/bash
+
+admin=$1
+adminpubkey=$2
+
+# Check that admin user is an existing account
+sudo yunohost user list --json | grep -q "\"username\": \"$admin\""
+if [[ ! $? -eq 0 ]]; then
+    echo "Error : the chosen admin user does not exist"
+    exit 1
+fi
+
+#Check if git user exists
+id git
+if [[  $? -eq 1 ]]; then
+	#Create git user
+	sudo adduser git \
+   --shell /bin/bash \
+   --gecos "User for managing of git version control" \
+   --disabled-password \
+   --home /home/git
+fi
+
+#sudo su - git -c "touch /home/git/$admin.pub"
+echo "$adminpubkey" | sudo tee -a /home/git/$admin.pub
+sudo chown git:git /home/git/$admin.pub
+sudo chmod 664 /home/git/$admin.pub
+
+cd /home/git/
+if [ -f .ssh/authorized_keys ]; then
+	sudo su - git -c "mv .ssh/authorized_keys .ssh/authorized_keys.bak"
+fi
+
+sudo su - git -c "git clone git://github.com/sitaramc/gitolite"
+sudo su - git -c "mkdir -p /home/git/bin"
+sudo su - git -c "/home/git/gitolite/install -to /home/git/bin"
+sudo su - git -c "/home/git/bin/gitolite setup -pk $admin.pub"
+
+exit 0;

@@ -1,0 +1,36 @@
+{
+    "name": "Gitolite",
+    "id": "gitolite",
+    "description": {
+        "en": "Gitolite allows you to setup git hosting on a central server, with very fine-grained access control and many (many!) more powerful features.",
+        "fr": "Gitolite vous permet de configurer un serveur git, avec un contrôle des accès très fin et beaucoup plus de fonctionnalités puissantes."
+    },
+    "developer": {
+        "name": "Matlink",
+        "email": "matlink@matlink.fr",
+        "url": "https://github.com/sitaramc/gitolite"
+    },
+    "multi_instance": "false",
+    "arguments": {
+        "install" : [
+
+            {
+                "name": "admin",
+                "type": "user",
+                "ask": {
+                    "en": "Choose the first allowed admin",
+                    "fr": "Choisissez le premier utilisateur autorisé"
+                },
+                "example": "johndoe"
+            },
+            {
+                "name": "adminpubkey",
+                "ask": {
+                    "en": "Please put in the SSH public key of the admin",
+                    "fr": "Veuillez coller ici la clé SSH publique de l'administrateur"
+                },
+                "example": "ssh-ed25519 AAAAC3Nzac1lZDI1nTE5AaAAIONU43x/8qDEhcw7YljSKGFzf0bxeNeQvtZVwL1FQQSn user@workstation"
+            }
+        ]
+    }
+}
