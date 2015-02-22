@@ -24,7 +24,8 @@ fi
 #sudo su - git -c "touch /home/git/$admin.pub"
 echo "$adminpubkey" | sudo tee -a /home/git/$admin.pub
 sudo chown git:git /home/git/$admin.pub
-sudo chmod 664 /home/git/$admin.pub
+sudo chmod 444 /home/git/$admin.pub
+
 
 cd /home/git/
 if [ -f .ssh/authorized_keys ]; then
@@ -35,5 +36,12 @@ sudo su - git -c "git clone git://github.com/sitaramc/gitolite"
 sudo su - git -c "mkdir -p /home/git/bin"
 sudo su - git -c "/home/git/gitolite/install -to /home/git/bin"
 sudo su - git -c "/home/git/bin/gitolite setup -pk $admin.pub"
+
+# Make projects list readable for gitweb
+sudo chmod o+r /home/git/projects.list
+# Set UMask for gitweb
+sudo sed -i "s/UMASK.*/UMASK                           =>  0022,/g" /home/git/.gitolite.rc
+# Make repositories readable for gitweb
+sudo chmod o+rx /home/git/repositories -R
 
 exit 0;
