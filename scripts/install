@@ -38,10 +38,10 @@ sudo su - git -c "/home/git/gitolite/install -to /home/git/bin"
 sudo su - git -c "/home/git/bin/gitolite setup -pk $admin.pub"
 
 # Make projects list readable for gitweb
-sudo chmod o+r /home/git/projects.list
+sudo chmod g+r /home/git/projects.list
 # Set UMask for gitweb
-sudo sed -i "s/UMASK.*/UMASK                           =>  0022,/g" /home/git/.gitolite.rc
+sudo sed -i "s/UMASK.*/UMASK                           =>  0027,/g" /home/git/.gitolite.rc
 # Make repositories readable for gitweb
-sudo chmod o+rx /home/git/repositories -R
+sudo chmod g+rx /home/git/repositories -R
 
 exit 0;
