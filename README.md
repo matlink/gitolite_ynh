@@ -1,4 +1,4 @@
-# Abandonned. Use at your own risks
+# Abandoned. Use at your own risks
 
 # Gitolite packaged for Yunohost
 
